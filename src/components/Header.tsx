@@ -1,8 +1,13 @@
+// react imports
 import Image from "next/image";
-import React from "react";
 
+// third party imports
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
+
+
+
+
 
 export default function Header() {
   return (
