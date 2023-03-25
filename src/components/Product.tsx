@@ -3,21 +3,25 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { AiFillStar } from "react-icons/ai";
-// import Currency from "react-currency-formatter";
-import { NumericFormat } from 'react-number-format';
-
+import { NumericFormat } from "react-number-format";
 
 interface ProductProps {
-  id: string,
-  title: string,
-  price: number,
-  description: string,
-  category: string,
-  image: string,
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
 }
 
-
-export const Product = ({ id, title, price, description, category, image }:ProductProps) => {
+export const Product = ({
+  id,
+  title,
+  price,
+  description,
+  category,
+  image,
+}: ProductProps) => {
   let maxRating = 5;
   let minRating = 1;
   let finalRating = Math.floor(
@@ -36,7 +40,7 @@ export const Product = ({ id, title, price, description, category, image }:Produ
     <div className="relative flex flex-col bg-white m-5 p-10 z-30">
       <p className="absolute top-2 right-2 text-gray-400 italic">{category}</p>
       <Image
-      className="mx-auto"
+        className="mx-auto"
         src={image}
         height={200}
         width={200}
@@ -52,20 +56,16 @@ export const Product = ({ id, title, price, description, category, image }:Produ
           ))}
       </div>
       <div className="mb-5">
-
-
-
-<NumericFormat
-  value={price}
-  thousandsGroupStyle="lakh"
-  prefix="$"
-  // thousandSeparator=","
-  // displayType="num"
-  // renderText={(value) => <b>{value}</b>}
-/>
-      {/* <Currency currency="EUR" quantity={price} /> */}
+        <NumericFormat
+          value={price}
+          thousandsGroupStyle="lakh"
+          prefix="$"
+          thousandSeparator=","
+          displayType="text"
+          renderText={(value) => <b>{value}</b>}
+        />
       </div>
-      {/* {hasPrime && <p>has prime delivery</p>} */}
+
       {hasPrime && (
         <div className="flex items-center space-x-2 -mt-5">
           <img className="w-12" src="https://links.papareact.com/fdw" alt="" />
