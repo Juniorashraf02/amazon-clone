@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -6,7 +7,17 @@ import { AiFillStar } from "react-icons/ai";
 import { NumericFormat } from 'react-number-format';
 
 
-export const Product = ({ id, title, price, description, category, image }) => {
+interface ProductProps {
+  id: string,
+  title: string,
+  price: number,
+  description: string,
+  category: string,
+  image: string,
+}
+
+
+export const Product = ({ id, title, price, description, category, image }:ProductProps) => {
   let maxRating = 5;
   let minRating = 1;
   let finalRating = Math.floor(
