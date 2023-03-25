@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { AiFillStar } from "react-icons/ai";
-import Currency from "react-currency-formatter";
+// import Currency from "react-currency-formatter";
+import { NumericFormat } from 'react-number-format';
+
 
 export const Product = ({ id, title, price, description, category, image }) => {
   let maxRating = 5;
@@ -39,7 +41,18 @@ export const Product = ({ id, title, price, description, category, image }) => {
           ))}
       </div>
       <div className="mb-5">
-      <Currency currency="EUR" quantity={price} />
+
+
+
+<NumericFormat
+  value={price}
+  thousandsGroupStyle="lakh"
+  prefix="$"
+  // thousandSeparator=","
+  // displayType="num"
+  // renderText={(value) => <b>{value}</b>}
+/>
+      {/* <Currency currency="EUR" quantity={price} /> */}
       </div>
       {/* {hasPrime && <p>has prime delivery</p>} */}
       {hasPrime && (
