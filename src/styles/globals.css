@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-    .link{
-        @apply cursor-pointer hover:underline
-    }
+@layer components {
+  .link {
+    @apply cursor-pointer hover:underline;
+  }
+
+  .button {
+    @apply p-2 font-semibold text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400 border border-yellow-300 rounded-sm focus:outline-none  focus:ring-yellow-500 active:to-yellow-400 active:from-yellow-500 active:outline-none;
+  }
 }
