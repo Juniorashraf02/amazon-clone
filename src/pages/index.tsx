@@ -7,11 +7,11 @@ import PropTypes,{ InferProps }  from 'prop-types';
 
 const inter = Inter({ subsets: ["latin"] });
 
-Home.propTypes={
-  products: PropTypes.string,
+interface Props {
+  products: [],
 }
 
-export default function Home({products}: InferProps<typeof Home.propTypes>) {
+export default function Home({products}: Props) {
 
  
   return (
