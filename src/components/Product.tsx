@@ -22,6 +22,8 @@ export const Product = ({
   category,
   image,
 }: ProductProps) => {
+
+
   let maxRating = 5;
   let minRating = 1;
   let finalRating = Math.floor(
@@ -49,16 +51,14 @@ export const Product = ({
       <h4 className="my-3 font-bold">{title}</h4>
       <p className="my-2 text-xs line-clamp-2">{description}</p>
       <div className="flex">
-        {Array(rating)
-          .fill()
-          .map((_, i) => (
+        {rating && Array().fill(rating).map((_, i) => (
             <AiFillStar key={id} className="text-yellow-400" />
           ))}
       </div>
       <div className="mb-5">
         <NumericFormat
           value={price}
-          thousandsGroupStyle="lakh"
+          // thousandsGroupStyle="lakh"
           prefix="$"
           thousandSeparator=","
           displayType="text"
