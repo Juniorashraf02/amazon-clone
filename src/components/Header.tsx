@@ -4,12 +4,21 @@ import Image from "next/image";
 // third party imports
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
+import {useSession}  from 'next-auth/react';
+import {  signIn, signOut } from "next-auth/react"
+
 
 
 
 
 
 export default function Header() {
+  const { data }= useSession();
+
+  console.log(data?.user?.name)
+
+
+
   return (
     <header>
       {/* top nav */}
@@ -33,8 +42,10 @@ export default function Header() {
 
         {/* right section */}
         <div className="text-white flex gap-5 items-center text-xs space-x-4 mx-6 whitespace-nowrap">
-          <div className="link">
-            <p>Hello Shuvo!</p>
+          <div onClick={!data ? ()=> signIn() : ()=>signOut()}  className="link">
+            <p >
+              {data ? `Hello ${data.user.name}!`: 'Sign in'}
+            </p>
             <p className="font-extrabold md:text-sm">Accounts & Lists</p>
           </div>
           <div className="link">
