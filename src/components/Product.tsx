@@ -55,6 +55,7 @@ export const Product = ({
             <AiFillStar key={id} className="text-yellow-400" />
           ))}
       </div>
+      {/* fff */}
       <div className="mb-5">
         <NumericFormat
           value={price}
