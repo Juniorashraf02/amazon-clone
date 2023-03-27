@@ -44,7 +44,7 @@ export default function Header() {
         <div className="text-white flex gap-5 items-center text-xs space-x-4 mx-6 whitespace-nowrap">
           <div onClick={!data ? ()=> signIn() : ()=>signOut()}  className="link">
             <p >
-              {data ? `Hello ${data.user.name}!`: 'Sign in'}
+              {data ? `Hello ${data?.user?.name}!`: 'Sign in'}
             </p>
             <p className="font-extrabold md:text-sm">Accounts & Lists</p>
           </div>
