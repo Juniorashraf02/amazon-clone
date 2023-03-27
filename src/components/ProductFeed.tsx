@@ -24,6 +24,8 @@ export default function ProductFeed({ products }:ProductFeedProps){
           />
         ))}
 
+        {/* demo comment line  */}
+
       <img
         className="md:col-span-full"
         src="https://links.papareact.com/dyz"
