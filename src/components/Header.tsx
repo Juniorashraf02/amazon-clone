@@ -4,8 +4,9 @@ import Image from "next/image";
 // third party imports
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
-import {useSession}  from 'next-auth/react';
+import { useSession }  from 'next-auth/react';
 import {  signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/router";
 
 
 
@@ -14,6 +15,7 @@ import {  signIn, signOut } from "next-auth/react"
 
 export default function Header() {
   const { data }= useSession();
+  const router = useRouter();
 
   console.log(data?.user?.name)
 
@@ -25,6 +27,7 @@ export default function Header() {
       <div className="bg-amazon_blue flex flex-grow items-center p-1">
         <div className="flex items-center flex-grow sm:flex-grow-0 mt-2">
           <Image
+            onClick={()=>router.push("/")}
             src="https://links.papareact.com/f90"
             height={40}
             width={150}
@@ -52,7 +55,9 @@ export default function Header() {
             <p>Returns</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className="relative link flex items-center">
+          <div className="relative link flex items-center" 
+          onClick={()=>router.push("/checkout")}
+          >
             <span className="absolute top-0 right-0 md:right-10 bg-yellow-400 h-4 w-4 text-center rounded-full text-black font-bold">
               4
             </span>
