@@ -7,9 +7,6 @@ import { NumericFormat } from "react-number-format";
 import { useDispatch } from "react-redux";
 import { addToBasket } from "@/Redux/slices/basketSlice";
 
-
-
-
 interface ProductProps {
   id: string;
   title: string;
@@ -41,9 +38,6 @@ export const Product = ({
     setHasPrime(finalHasPrime);
   }, [finalRating, finalHasPrime]);
 
-
-
-  
   const dispatch = useDispatch();
   const addItemToBasket = () => {
     const product = {
@@ -56,7 +50,7 @@ export const Product = ({
       hasPrime,
       rating,
     };
-// sending the product as an action to the store
+    // sending the product as an action to the store
     dispatch(addToBasket(product));
   };
 

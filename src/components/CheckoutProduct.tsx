@@ -24,7 +24,7 @@ export const CheckoutProduct = ({
   rating,
 }: ProductProps) => {
   return (
-    <div className="grid grid-cols-6 md:mx-10">
+    <div className="grid grid-cols-6 md:mx-10 gap-2">
       <Image
         src={image}
         height={100}
@@ -34,7 +34,7 @@ export const CheckoutProduct = ({
       />
 
       {/* middle section */}
-      <div className="col-span-3 mx-3">
+      <div className="md:col-span-3 col-span-4 md:mx-3">
         <p>{title}</p>
         <p className="line-clamp-2 my-2">{description}</p>
         <div className="flex">
@@ -54,26 +54,23 @@ export const CheckoutProduct = ({
         />
 
         <div className="mt-6">
-
-        {hasPrime && (
-          <div className="flex items-center space-x-2 -mt-5">
-            <img
-              className="w-12"
-              src="https://links.papareact.com/fdw"
-              alt=""
-            />
-            <p className="text-xs text-gray-500">Free next-day delivery!</p>
-          </div>
-        )}
+          {hasPrime && (
+            <div className="flex items-center space-x-2 -mt-5">
+              <img
+                className="w-12"
+                src="https://links.papareact.com/fdw"
+                alt=""
+              />
+              <p className="text-xs text-gray-500">Free next-day delivery!</p>
+            </div>
+          )}
         </div>
-
       </div>
 
-
       {/* third secton */}
-      <div className="md:ml-5">
-        <button className="bg-yellow-400 w-full my-2 rounded-md text-gray-800 font-bold py-2 px-3">Add </button>
-        <button className="bg-yellow-400 w-full my-2 rounded-md text-gray-800 font-bold py-2 px-3">Remove </button>
+      <div className="md:ml-5 w-full">
+        <button className="button my-2 w-full">Add </button>
+        <button className="button my-2 w-full">Remove </button>
       </div>
     </div>
   );
