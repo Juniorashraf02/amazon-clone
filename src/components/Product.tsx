@@ -4,6 +4,11 @@ import Image from "next/image";
 
 import { AiFillStar } from "react-icons/ai";
 import { NumericFormat } from "react-number-format";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "@/Redux/slices/basketSlice";
+
+
+
 
 interface ProductProps {
   id: string;
@@ -22,8 +27,6 @@ export const Product = ({
   category,
   image,
 }: ProductProps) => {
-
-
   let maxRating = 5;
   let minRating = 1;
   let finalRating = Math.floor(
@@ -38,6 +41,25 @@ export const Product = ({
     setHasPrime(finalHasPrime);
   }, [finalRating, finalHasPrime]);
 
+
+
+  
+  const dispatch = useDispatch();
+  const addItemToBasket = () => {
+    const product = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      hasPrime,
+      rating,
+    };
+// sending the product as an action to the store
+    dispatch(addToBasket(product));
+  };
+
   return (
     <div className="relative flex flex-col bg-white m-5 p-10 z-30">
       <p className="absolute top-2 right-2 text-gray-400 italic">{category}</p>
@@ -51,9 +73,10 @@ export const Product = ({
       <h4 className="my-3 font-bold">{title}</h4>
       <p className="my-2 text-xs line-clamp-2">{description}</p>
       <div className="flex">
-        {rating && Array().fill(rating).map((_, i) => (
-            <AiFillStar key={id} className="text-yellow-400" />
-          ))}
+        {rating &&
+          Array()
+            .fill(rating)
+            .map((_, i) => <AiFillStar key={id} className="text-yellow-400" />)}
       </div>
       {/* fff */}
       <div className="mb-5">
@@ -73,7 +96,9 @@ export const Product = ({
           <p className="text-xs text-gray-500">Free next-day delivery!</p>
         </div>
       )}
-      <button className="mt-auto button">Add to Basket</button>
+      <button onClick={addItemToBasket} className="mt-auto button">
+        Add to Basket
+      </button>
     </div>
   );
 };

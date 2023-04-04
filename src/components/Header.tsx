@@ -4,30 +4,30 @@ import Image from "next/image";
 // third party imports
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
-import { useSession }  from 'next-auth/react';
-import {  signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-
-
-
-
-
+import { useSelector } from "react-redux";
+import { selectItems } from './../Redux/slices/basketSlice';
 
 export default function Header() {
-  const { data }= useSession();
+  const { data } = useSession();
   const router = useRouter();
+  const items = useSelector(selectItems);
 
-  console.log(data?.user?.name)
 
 
+
+
+  console.log(data?.user?.name);
 
   return (
-    <header>
+    <header className="relative sticky top-0 z-50">
       {/* top nav */}
-      <div className="bg-amazon_blue flex flex-grow items-center p-1">
+      <div className="bg-amazon_blue flex flex-grow items-center p-1 ">
         <div className="flex items-center flex-grow sm:flex-grow-0 mt-2">
           <Image
-            onClick={()=>router.push("/")}
+            onClick={() => router.push("/")}
             src="https://links.papareact.com/f90"
             height={40}
             width={150}
@@ -45,21 +45,23 @@ export default function Header() {
 
         {/* right section */}
         <div className="text-white flex gap-5 items-center text-xs space-x-4 mx-6 whitespace-nowrap">
-          <div onClick={!data ? ()=> signIn() : ()=>signOut()}  className="link">
-            <p >
-              {data ? `Hello ${data?.user?.name}!`: 'Sign in'}
-            </p>
+          <div
+            onClick={!data ? () => signIn() : () => signOut()}
+            className="link"
+          >
+            <p>{data ? `Hello ${data?.user?.name}!` : "Sign in"}</p>
             <p className="font-extrabold md:text-sm">Accounts & Lists</p>
           </div>
           <div className="link">
             <p>Returns</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>
-          <div className="relative link flex items-center" 
-          onClick={()=>router.push("/checkout")}
+          <div
+            className="relative link flex items-center"
+            onClick={() => router.push("/checkout")}
           >
             <span className="absolute top-0 right-0 md:right-10 bg-yellow-400 h-4 w-4 text-center rounded-full text-black font-bold">
-              4
+              {items.length}
             </span>
             <AiOutlineShoppingCart className="text-4xl" />
             <p className="font-extrabold md:text-sm hidden md:flex">Basket</p>
