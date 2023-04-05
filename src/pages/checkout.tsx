@@ -7,7 +7,7 @@ import { CheckoutProduct } from "./../components/CheckoutProduct";
 import { useSession } from "next-auth/react";
 import { NumericFormat } from "react-number-format";
 
-const checkout = () => {
+const Checkout = () => {
   const items = useSelector(selectItems);
   const totalPrice = useSelector(selectPrice);
   const session = useSession();
@@ -76,26 +76,31 @@ const checkout = () => {
             {items.length > 0 && (
               <>
                 <h2 className="whitespace-nowrap">
-                  Subtotal{" "}({items.length} items) :{" "}
+                  Subtotal ({items.length} items) :{" "}
                   <span className="font-bold">
-                  <NumericFormat
-          value={totalPrice}
-          // thousandsGroupStyle="lakh"
-          prefix="$"
-          thousandSeparator=","
-          displayType="text"
-          renderText={(value) => <b>{value}</b>}
-        />
+                    <NumericFormat
+                      value={totalPrice}
+                      // thousandsGroupStyle="lakh"
+                      prefix="$"
+                      thousandSeparator=","
+                      displayType="text"
+                      renderText={(value) => <b>{value}</b>}
+                    />
                   </span>
                 </h2>
 
-                <button 
-                disabled={session.status !== "authenticated"}
-                className={`
-                button my-5 ${(session.status !== "authenticated") && "from-gray-300 to-gray-500 text-gray-800 border-gray-200 cursor-not-allowed"}
+                <button
+                  disabled={session.status !== "authenticated"}
+                  className={`
+                button my-5 ${
+                  session.status !== "authenticated" &&
+                  "from-gray-300 to-gray-500 text-gray-800 border-gray-200 cursor-not-allowed"
+                }
                 `}
                 >
-                  {session.status==="authenticated" ? "proceed to checkout" : "sign in to checkout"}
+                  {session.status === "authenticated"
+                    ? "proceed to checkout"
+                    : "sign in to checkout"}
                 </button>
               </>
             )}
@@ -106,4 +111,4 @@ const checkout = () => {
   );
 };
 
-export default checkout;
+export default Checkout;
