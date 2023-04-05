@@ -1,6 +1,8 @@
+import { addToBasket, removeFromBasket } from "@/Redux/slices/basketSlice";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { NumericFormat } from "react-number-format";
+import { useDispatch } from "react-redux";
 
 interface ProductProps {
   id: string;
@@ -23,6 +25,33 @@ export const CheckoutProduct = ({
   hasPrime,
   rating,
 }: ProductProps) => {
+  const dispatch = useDispatch();
+  const addItemToBasket = () => {
+    const product = {
+      id,
+      title,
+      price,
+      description,
+      category,
+      image,
+      hasPrime,
+      rating,
+    }
+
+    // push items to redux store
+    dispatch(addToBasket(product));
+  };
+
+  const removeItemFromBasket = () => {
+    // remove items from store
+    dispatch(removeFromBasket({id}));
+  }
+
+
+
+
+
+
   return (
     <div className="grid grid-cols-6 md:mx-10 gap-2">
       <Image
@@ -69,8 +98,8 @@ export const CheckoutProduct = ({
 
       {/* third secton */}
       <div className="md:ml-5 w-full">
-        <button className="button my-2 w-full">Add </button>
-        <button className="button my-2 w-full">Remove </button>
+        <button className="button my-2 w-full" onClick={addItemToBasket}>Add </button>
+        <button className="button my-2 w-full" onClick={removeItemFromBasket}>Remove </button>
       </div>
     </div>
   );
