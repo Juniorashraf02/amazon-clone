@@ -7,22 +7,24 @@ import { CheckoutProduct } from "./../components/CheckoutProduct";
 import { useSession } from "next-auth/react";
 import { NumericFormat } from "react-number-format";
 
-const Checkout = () => {
+interface ProductProps {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  hasPrime: string;
+  rating: string;
+  i: number;
+}
+
+
+const Checkout: React.FC<ProductProps> = () => {
   const items = useSelector(selectItems);
   const totalPrice = useSelector(selectPrice);
   const session = useSession();
 
-  interface ProductProps {
-    id: string;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    hasPrime: string;
-    rating: string;
-    i: number;
-  }
 
   console.log(items);
 
@@ -58,7 +60,7 @@ const Checkout = () => {
         <div className="md:flex justify-around md:mx-5 w-full px-1">
           <div className="md:w-10/12">
             <div>{items.length === 0 ? "no Items selected" : ""}</div>
-            {items.map((items, i) => (
+            {items.map((items:ProductProps, i:number) => (
               <CheckoutProduct
                 key={i}
                 id={items.id}
