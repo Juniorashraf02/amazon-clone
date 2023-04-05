@@ -2,12 +2,14 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectItems } from "./../Redux/slices/basketSlice";
+import { selectItems, selectPrice } from "./../Redux/slices/basketSlice";
 import { CheckoutProduct } from "./../components/CheckoutProduct";
 import { useSession } from "next-auth/react";
+import { NumericFormat } from "react-number-format";
 
 const checkout = () => {
   const items = useSelector(selectItems);
+  const totalPrice = useSelector(selectPrice);
   const session = useSession();
 
   interface ProductProps {
@@ -75,7 +77,16 @@ const checkout = () => {
               <>
                 <h2 className="whitespace-nowrap">
                   Subtotal{" "}({items.length} items) :{" "}
-                  <span className="font-bold"></span>
+                  <span className="font-bold">
+                  <NumericFormat
+          value={totalPrice}
+          // thousandsGroupStyle="lakh"
+          prefix="$"
+          thousandSeparator=","
+          displayType="text"
+          renderText={(value) => <b>{value}</b>}
+        />
+                  </span>
                 </h2>
 
                 <button 

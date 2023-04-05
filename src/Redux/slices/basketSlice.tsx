@@ -18,7 +18,7 @@ export const basketSlice = createSlice({
 
       let newBasket = [...state.items];
       if (index >= 0) {
-        // items exists in the basket and remove it 
+        // items exists in the basket and remove it
         newBasket.splice(index, 1);
       } else {
         console.warn(
@@ -35,5 +35,9 @@ const basketReducer = basketSlice.reducer;
 export const { addToBasket, removeFromBasket } = basketSlice.actions;
 
 export const selectItems = (state: any) => state.basket.items;
+
+export const selectPrice = (state: any) =>
+  state.basket.items.reduce((total, item) => total + item.price, 0);
+
 
 export default basketReducer;
