@@ -4,9 +4,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectItems } from "./../Redux/slices/basketSlice";
 import { CheckoutProduct } from "./../components/CheckoutProduct";
+import { useSession } from "next-auth/react";
 
 const checkout = () => {
   const items = useSelector(selectItems);
+  const session = useSession();
 
   interface ProductProps {
     id: string;
@@ -68,9 +70,25 @@ const checkout = () => {
               />
             ))}
           </div>
-          <div className=" bg-gray-100 h-screen w-4/12 px-12 py-5 ">
-            <p>Hello</p>
-          </div>{" "}
+          <div className=" bg-gray-50 h-screen md:w-4/12 px-12 py-5 flex flex-col p-10 shadow-md">
+            {items.length > 0 && (
+              <>
+                <h2 className="whitespace-nowrap">
+                  Subtotal{" "}({items.length} items) :{" "}
+                  <span className="font-bold"></span>
+                </h2>
+
+                <button 
+                disabled={session.status !== "authenticated"}
+                className={`
+                button my-5 ${(session.status !== "authenticated") && "from-gray-300 to-gray-500 text-gray-800 border-gray-200 cursor-not-allowed"}
+                `}
+                >
+                  {session.status==="authenticated" ? "proceed to checkout" : "sign in to checkout"}
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </main>
     </div>
