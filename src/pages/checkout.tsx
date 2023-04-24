@@ -4,8 +4,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectItems, selectPrice } from "./../Redux/slices/basketSlice";
 import { CheckoutProduct } from "./../components/CheckoutProduct";
-import { useSession } from "next-auth/react";
+// import { getSession } from "next-auth/client"
+import { getSession, useSession } from "next-auth/react";
 import { NumericFormat } from "react-number-format";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+const stripePromise = loadStripe("pk_test_51L1dg0B5WMGrt28lrlvH9mAZ9Wg6rgSUqLsXpK5DhlJv7SafWEaXSwsOCZ5U4V0voRW4UE3yn9BJaUsF2c8byhjs00Qflj7Vdp") ;
+
 
 interface ProductProps {
   id: string;
@@ -17,16 +22,39 @@ interface ProductProps {
   hasPrime: string;
   rating: string;
   i: number;
+  user: string;
 }
-
 
 const Checkout: React.FC<ProductProps> = () => {
   const items = useSelector(selectItems);
   const totalPrice = useSelector(selectPrice);
   const session = useSession();
 
+  // console.log(items);
+  // console.log(session);
 
-  console.log(items);
+  const createCheckoutSession = async() =>  {
+    const stripe = await stripePromise;
+
+    if (!stripe) {
+      console.error('Stripe is not loaded');
+      return;
+  }
+
+    const checkoutSession = await axios.post("/api/stripe/create-checkout-session", {
+      items: items,
+      email: session?.data?.user?.email,
+    });
+
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id
+    });
+
+    if(result.error) return alert(result.error.message)
+  }
+
+ 
 
   return (
     <div className="">
@@ -60,7 +88,7 @@ const Checkout: React.FC<ProductProps> = () => {
         <div className="md:flex justify-around md:mx-5 w-full px-1">
           <div className="md:w-10/12">
             <div>{items.length === 0 ? "no Items selected" : ""}</div>
-            {items.map((items:ProductProps, i:number) => (
+            {items.map((items: ProductProps, i: number) => (
               <CheckoutProduct
                 key={i}
                 id={items.id}
@@ -92,6 +120,8 @@ const Checkout: React.FC<ProductProps> = () => {
                 </h2>
 
                 <button
+                role="link"
+                  onClick={createCheckoutSession}
                   disabled={session.status !== "authenticated"}
                   className={`
                 button my-5 ${
