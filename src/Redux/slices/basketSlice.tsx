@@ -1,6 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface Item {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface BasketState {
+  items: Item[];
+}
+
+const initialState:BasketState = {
   items: [],
 };
 
@@ -36,7 +46,7 @@ export const { addToBasket, removeFromBasket } = basketSlice.actions;
 
 export const selectItems = (state: any) => state.basket.items;
 
-export const selectPrice = (state: any) =>
+export const selectPrice = (state: {basket: BasketState}) =>
   state.basket.items.reduce((total, item) => total + item.price, 0);
 
 
